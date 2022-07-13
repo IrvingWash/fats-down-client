@@ -1,6 +1,7 @@
+import {IChartApi} from 'lightweight-charts';
 import React, { useEffect, useRef } from 'react';
 
-import { createChart } from 'lightweight-charts';
+import { configureChart } from './chart-config';
 
 const initialData = [
 	{ time: '2018-12-22', value: 32.51 },
@@ -18,20 +19,13 @@ const initialData = [
 export function Chart(): JSX.Element {
 	const chartContainerRef = useRef<HTMLDivElement | null>(null);
 
-	useEffect(
-		() => {
-			const handleResize = (): void => {
-				chart.applyOptions({ width: chartContainerRef.current!.clientWidth });
-			};
+	useEffect(() => {
+		const chartConfig = configureChart(chartContainerRef.current);
 
-			const chart = createChart(chartContainerRef.current!, {
-				width: chartContainerRef.current!.clientWidth,
-				height: 400,
-			});
-			chart.timeScale().fitContent();
+		if (chartConfig !== null) {
+			const { chart, handleResize } = chartConfig;
 
-			const newSeries = chart.addLineSeries();
-			newSeries.setData(initialData);
+			createSeries(chart, initialData);
 
 			window.addEventListener('resize', handleResize);
 
@@ -40,13 +34,17 @@ export function Chart(): JSX.Element {
 
 				chart.remove();
 			};
-		},
-		[]
-	);
+		}
+	}, []);
 
 	return (
 		<div
 			ref={chartContainerRef}
 		/>
 	);
+
+	function createSeries(chart: IChartApi, data: { time: string, value: number }[]): void {
+		const newSeries = chart.addLineSeries();
+		newSeries.setData(data);
+	}
 }
