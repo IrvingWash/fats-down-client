@@ -3,16 +3,18 @@ import React from 'react';
 import * as styles from './input.scss';
 
 interface InputProps {
+	value: string | number;
+	onValueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	type?: 'text' | 'number';
-	value?: string;
 	className?: string;
 	placeholder?: string;
 }
 
 export function Input(props: InputProps): JSX.Element {
 	const {
-		type = 'text',
 		value,
+		onValueChange,
+		type = 'text',
 		className,
 		placeholder,
 	} = props;
@@ -23,6 +25,11 @@ export function Input(props: InputProps): JSX.Element {
 			type={ type }
 			className={ `${styles.input} ${className}` }
 			placeholder={ placeholder }
+			onChange={ handleInputChange }
 		/>
 	);
+
+	function handleInputChange(event: React.ChangeEvent<HTMLInputElement>): void {
+		onValueChange(event);
+	}
 }
