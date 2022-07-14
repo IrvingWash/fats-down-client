@@ -1,0 +1,11 @@
+.weightForm {
+	display: flex;
+	flex-direction: column;
+	width: 150px;
+	margin: 50px auto 0;
+
+	.weightInput {
+		margin-bottom: 10px;
+		text-align: center;
+	}
+}
