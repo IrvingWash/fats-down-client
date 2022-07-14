@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 
 import { Button } from '../ui/button/button';
 import { Input } from '../ui/input/input';
+import { Weight } from '../../objects-and-constants/objects';
 
 import * as styles from './weight-form.scss';
 
-export function WeightForm(): JSX.Element {
+interface WeightFormProps {
+	addWeight: (weight: Weight) => void;
+}
+
+export function WeightForm(props: WeightFormProps): JSX.Element {
 	const [weight, setWeight] = useState<number | string>('');
 
 	return (
@@ -31,5 +36,13 @@ export function WeightForm(): JSX.Element {
 
 	function handleFormSubmit(event: React.ChangeEvent<HTMLFormElement>): void {
 		event.preventDefault();
+
+		const date = {
+			day: 14,
+			month: 7,
+			year: 2022,
+		};
+
+		props.addWeight({ value: +weight, time: date });
 	}
 }

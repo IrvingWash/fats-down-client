@@ -27,7 +27,7 @@ export function Chart(props: ChartProps): JSX.Element {
 				chart.remove();
 			};
 		}
-	}, []);
+	}, [props.data]);
 
 	return (
 		<div
