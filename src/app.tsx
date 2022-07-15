@@ -10,6 +10,8 @@ import dummyData from './dummy-data.json';
 export function App(): JSX.Element {
 	const [data, setData] = useState(dummyData);
 
+	console.log(process.env.TEST);
+
 	return (
 		<div>
 			<Header />
