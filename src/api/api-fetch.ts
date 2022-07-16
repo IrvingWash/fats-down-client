@@ -3,15 +3,17 @@ export const enum HttpMethod {
 	Post = 'POST',
 }
 
+const baseUrl = process.env.API_URL;
+
 export async function apiFetch<ApiEntity>(
 	url: string,
 	method: HttpMethod = HttpMethod.Get,
-	body: object | string
+	body?: object | string
 ): Promise<ApiEntity> {
 	const bodyJson = JSON.stringify(body);
 
 	const response = await fetch(
-		url,
+		`${baseUrl}/${url}`,
 		{
 			method: method,
 			headers: {

@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Chart } from './components/chart/chart';
 import { Header } from './components/header/header';
 import { WeightForm } from './components/weight-form/weight-form';
-import { Weight } from './objects-and-constants/objects';
-
-import dummyData from './dummy-data.json';
+import { User, Weight } from './objects-and-constants/objects';
+import { fetchUsers } from './api/api-transport';
 
 export function App(): JSX.Element {
-	const [data, setData] = useState(dummyData);
+	const [data, setData] = useState<User[]>([]);
 
-	console.log(process.env.TEST);
+	useEffect(() => {
+		getUsers();
+	}, []);
 
 	return (
 		<div>
@@ -21,9 +22,15 @@ export function App(): JSX.Element {
 	);
 
 	function addWeight(weight: Weight): void {
-		const newData = [ ...dummyData];
-		newData[0].weights.push(weight);
+		// const newData = [ ...dummyData];
+		// newData[0].weights.push(weight);
 
-		setData(newData);
+		// setData(newData);
+	}
+
+	async function getUsers(): Promise<void> {
+		const users = await fetchUsers();
+
+		setData(users);
 	}
 }
