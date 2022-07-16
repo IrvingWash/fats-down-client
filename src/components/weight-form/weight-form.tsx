@@ -37,12 +37,14 @@ export function WeightForm(props: WeightFormProps): JSX.Element {
 	function handleFormSubmit(event: React.ChangeEvent<HTMLFormElement>): void {
 		event.preventDefault();
 
-		const date = {
-			day: 14,
-			month: 7,
-			year: 2022,
+		const date = new Date();
+
+		const time = {
+			day: date.getDate(),
+			month: date.getMonth() + 1,
+			year: date.getFullYear(),
 		};
 
-		props.addWeight({ value: +weight, time: date });
+		props.addWeight({ value: +weight, time });
 	}
 }

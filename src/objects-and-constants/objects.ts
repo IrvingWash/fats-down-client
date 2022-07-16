@@ -8,6 +8,7 @@ export interface User {
 export interface Weight {
 	value: number;
 	time: WeightDate;
+	userId?: string;
 }
 
 export interface WeightDate {

@@ -4,7 +4,7 @@ import { Chart } from './components/chart/chart';
 import { Header } from './components/header/header';
 import { WeightForm } from './components/weight-form/weight-form';
 import { User, Weight } from './objects-and-constants/objects';
-import { fetchUsers } from './api/api-transport';
+import { fetchUsers, postWeight } from './api/api-transport';
 
 export function App(): JSX.Element {
 	const [data, setData] = useState<User[]>([]);
@@ -21,11 +21,10 @@ export function App(): JSX.Element {
 		</div>
 	);
 
-	function addWeight(weight: Weight): void {
-		// const newData = [ ...dummyData];
-		// newData[0].weights.push(weight);
+	async function addWeight(weight: Weight): Promise<void> {
+		await postWeight(weight);
 
-		// setData(newData);
+		await getUsers();
 	}
 
 	async function getUsers(): Promise<void> {
