@@ -46,6 +46,6 @@ module.exports = {
 			template: path.resolve(__dirname, '..', './src/index.html'),
 		}),
 		new MiniCssExtractPlugin(),
-		new Dotenv(),
+		new Dotenv({ systemvars: true }),
 	],
 }
