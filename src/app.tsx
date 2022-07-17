@@ -15,7 +15,7 @@ export function App(): JSX.Element {
 
 	return (
 		<div>
-			<Header />
+			<Header username={ data[0]?.name } />
 			<Chart data={ data } />
 			<WeightForm addWeight={ addWeight } />
 		</div>
