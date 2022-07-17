@@ -7,11 +7,11 @@ export interface User {
 
 export interface Weight {
 	value: number;
-	time: WeightDate;
+	time: Date;
 	userId?: string;
 }
 
-export interface WeightDate {
+export interface Date {
 	day: number;
 	month: number;
 	year: number;

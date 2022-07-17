@@ -46,5 +46,7 @@ export function WeightForm(props: WeightFormProps): JSX.Element {
 		};
 
 		props.addWeight({ value: +weight, time });
+
+		setWeight('');
 	}
 }
