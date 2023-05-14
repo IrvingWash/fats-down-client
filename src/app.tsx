@@ -1,12 +1,16 @@
 import React from 'react';
 
-import { TestPage } from './test-page';
+import { Header } from '@ui-kit/components';
+
+import { SignUpForm } from './sign-up-form/view/sign-up-form';
 
 export class App extends React.Component {
 	public override render(): JSX.Element {
 		return (
 			<main>
-				<TestPage />
+				<Header title='FatsDown' />
+
+				<SignUpForm />
 			</main>
 		);
 	}

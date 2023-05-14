@@ -20,8 +20,8 @@ export function Heading(props: HeadingProps): JSX.Element {
 
 	return (
 		<h2
-			className={ classNames(s[size], s[intent], className) }
 			{ ...props }
+			className={ classNames(s[size], s[intent], className) }
 		>
 			{ children }
 		</h2>
