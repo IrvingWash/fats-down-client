@@ -5,6 +5,10 @@ export interface SignInPayload {
 
 export interface SignUpPayload extends SignInPayload {
 	username: string;
+
+	/**
+	 * Any valid CSS color
+	 */
 	color: string;
 }
 
@@ -23,6 +27,10 @@ export interface User {
 	id: number;
 	username: string;
 	email: string;
+
+	/**
+	 * Any valid CSS color
+	 */
 	color: string;
 	weights: Weight[];
 }
@@ -30,5 +38,22 @@ export interface User {
 export interface Weight {
 	id: number;
 	value: number;
+
+	/**
+	 * Unix timestamp
+	 */
 	date: string;
+}
+
+export interface CreateWeightPayload {
+	value: number;
+
+	/**
+	 * Unix timestamp
+	 */
+	date: string;
+}
+
+export interface UpdateWeightPayload extends Partial<CreateWeightPayload> {
+	id: number;
 }

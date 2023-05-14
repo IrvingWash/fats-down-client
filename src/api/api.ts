@@ -2,9 +2,12 @@ import { EnvExtractor } from '@utils/env-extractor';
 import { ICredentialStorage } from 'src/credential-storage/icredential-storage';
 
 import {
+	CreateWeightPayload,
 	SignInPayload,
 	SignUpPayload,
+	UpdateWeightPayload,
 	User,
+	Weight,
 } from './api-objects';
 
 import { IRequestsEnvironment } from './requests-environment/irequests-environment';
@@ -63,6 +66,14 @@ export class API implements IAPI {
 
 	public async allUsers(): Promise<User[]> {
 		return await this._transport.allUsers();
+	}
+
+	public async createWeight(payload: CreateWeightPayload): Promise<Weight> {
+		return await this._transport.createWeight(payload);
+	}
+
+	public async updateWeight(payload: UpdateWeightPayload): Promise<Weight> {
+		return await this._transport.updateWeight(payload);
 	}
 }
 
