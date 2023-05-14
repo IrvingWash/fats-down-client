@@ -5,11 +5,7 @@ import { ICredentialStorage } from './icredential-storage';
 
 // TODO: Add encryption
 export class CredentialStorage implements ICredentialStorage {
-	private readonly _key: string;
-
-	public constructor(key: string) {
-		this._key = key;
-	}
+	private readonly _key = 'fats-down';
 
 	public save(credentials: AuthResult): void {
 		localStorage.setItem(this._key, JSON.stringify(credentials));

@@ -13,6 +13,7 @@ async function apiFetch<T>(requestMetainfo: RequestMetainfo, credentialStorage: 
 		requestMetainfo.url,
 		{
 			headers: makeHeaders(credentialStorage.load()?.tokens?.accessToken),
+			method: requestMetainfo.method,
 			body: payload === undefined ? undefined : JSON.stringify(payload),
 		}
 	);
