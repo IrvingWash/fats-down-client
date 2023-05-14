@@ -1,7 +1,9 @@
 import { extractErrorMessage, ensureNotNullish } from '@utils/helpers';
+import { AuthResult } from 'src/api/api-objects';
 
 import { ICredentialStorage } from './icredential-storage';
 
+// TODO: Add encryption
 export class CredentialStorage implements ICredentialStorage {
 	private readonly _key: string;
 
@@ -9,23 +11,15 @@ export class CredentialStorage implements ICredentialStorage {
 		this._key = key;
 	}
 
-	// TODO: Change type ASAP
-	public save(credentials: unknown): void {
-		try {
-			const value = JSON.stringify(credentials);
-
-			localStorage.setItem(this._key, value);
-		} catch (error) {
-			throw new Error(`Failed to serialize credentials: ${extractErrorMessage(error)}`);
-		}
+	public save(credentials: AuthResult): void {
+		localStorage.setItem(this._key, JSON.stringify(credentials));
 	}
 
-	// TODO: Change type ASAP
-	public load(): unknown {
+	public load(): AuthResult {
 		try {
 			const credentials = localStorage.getItem(this._key);
 
-			return JSON.parse(ensureNotNullish(credentials));
+			return JSON.parse(ensureNotNullish(credentials)) as AuthResult;
 		} catch (error) {
 			throw new Error(`Failed to parse saved credentials: ${extractErrorMessage(error)}`);
 		}

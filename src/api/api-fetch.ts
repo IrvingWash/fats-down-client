@@ -1,5 +1,3 @@
-import { extractErrorMessage } from '@utils/helpers';
-
 import { RequestMetainfo } from './requests-environment/irequests-environment';
 
 export type APIFetch = ReturnType<typeof makeAPIFetch>;
@@ -11,17 +9,12 @@ export function makeAPIFetch(accessToken: string): (requestMetainfo: RequestMeta
 }
 
 async function apiFetch<T>(requestMetainfo: RequestMetainfo, headers: Headers, payload?: object): Promise<T> {
-	let body: string | undefined;
-
-	try {
-		body = JSON.stringify(payload);
-	} catch (error) {
-		throw new Error(`Failed to serialize payload: ${extractErrorMessage(error)}`);
-	}
-
 	const response = await fetch(
 		requestMetainfo.url,
-		{ headers, body }
+		{
+			headers,
+			body: payload === undefined ? undefined : JSON.stringify(payload),
+		}
 	);
 
 	return await response.json();
