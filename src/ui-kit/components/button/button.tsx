@@ -14,7 +14,7 @@ export function Button(props: ButtonProps): JSX.Element {
 	const {
 		className,
 		children,
-		intent = Intent.Primary,
+		intent = Intent.Secondary,
 		size = Size.Medium,
 	} = props;
 
