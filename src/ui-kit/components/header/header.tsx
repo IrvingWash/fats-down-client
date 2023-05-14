@@ -10,7 +10,6 @@ import * as s from './header.pcss';
 interface HeaderProps {
 	title: string;
 	username?: string;
-	showAuthButton?: boolean;
 	className?: string;
 }
 
@@ -19,26 +18,33 @@ export function Header(props: HeaderProps): JSX.Element {
 		title,
 		className,
 		username,
-		showAuthButton,
 	} = props;
 
 	return (
 		<header className={ classNames(s.header, className) }>
 			<div className={ s.title }>{ title }</div>
 
-			{ showAuthButton
+			{ username
 				? (
-					<Button
-						size={ Size.Small }
-						intent={ Intent.Accent }
-					>
-						Join
-					</Button>
+					<div className={ s.username }>{ username }</div>
 				)
-				: null
+				: (
+					<div className={ s.joinBlock }>
+						<Button
+							size={ Size.Small }
+							intent={ Intent.Accent }
+						>
+							Sign Up
+						</Button>
+						<Button
+							size={ Size.Small }
+							intent={ Intent.Accent }
+						>
+							Sign In
+						</Button>
+					</div>
+				)
 			}
-
-			{ username && <div className={ s.username }>{ username }</div> }
 		</header>
 	);
 }
