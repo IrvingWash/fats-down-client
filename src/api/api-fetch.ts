@@ -1,4 +1,4 @@
-import { getErrorMessage } from '@utils/helpers';
+import { extractErrorMessage } from '@utils/helpers';
 
 import { RequestMetainfo } from './requests-environment/irequests-environment';
 
@@ -16,7 +16,7 @@ async function apiFetch<T>(requestMetainfo: RequestMetainfo, headers: Headers, p
 	try {
 		body = JSON.stringify(payload);
 	} catch (error) {
-		throw new Error(`Failed to serialize payload: ${getErrorMessage(error)}`);
+		throw new Error(`Failed to serialize payload: ${extractErrorMessage(error)}`);
 	}
 
 	const response = await fetch(

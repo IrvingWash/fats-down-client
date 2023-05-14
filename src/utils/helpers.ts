@@ -6,7 +6,7 @@ export function ensureNotNullish<T>(value: T | undefined | null, message?: strin
 	return value;
 }
 
-export function getErrorMessage(error: unknown): string {
+export function extractErrorMessage(error: unknown): string {
 	if (error instanceof Error) {
 		return error.message;
 	}
