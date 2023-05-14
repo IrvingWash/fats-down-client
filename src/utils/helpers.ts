@@ -5,3 +5,19 @@ export function ensureNotNullish<T>(value: T | undefined | null, message?: strin
 
 	return value;
 }
+
+export function getErrorMessage(error: unknown): string {
+	if (error instanceof Error) {
+		return error.message;
+	}
+
+	if (typeof error === 'object') {
+		return JSON.stringify(error);
+	}
+
+	if (error === undefined || error === null) {
+		return 'Unknown error';
+	}
+
+	return error.toString();
+}
