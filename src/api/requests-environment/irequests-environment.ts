@@ -12,5 +12,11 @@ export interface RequestMetainfo {
 }
 
 export interface IRequestsEnvironment {
-	test(): RequestMetainfo;
+	signUp(): RequestMetainfo;
+	signIn(): RequestMetainfo;
+	refresh(): RequestMetainfo;
+	signOut(): RequestMetainfo;
+	allUsers(): RequestMetainfo;
+	createWeight(): RequestMetainfo;
+	updateWeight(): RequestMetainfo;
 }

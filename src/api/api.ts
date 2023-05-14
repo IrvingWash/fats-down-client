@@ -16,7 +16,7 @@ export class API implements IAPI {
 		this._requestsEnvironment = new RequestsEnvironment(this._baseURL);
 
 		// TODO: Delete ASAP
-		console.log(this._requestsEnvironment.test());
+		console.log(this._requestsEnvironment.allUsers());
 	}
 }
 
