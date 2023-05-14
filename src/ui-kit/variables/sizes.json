@@ -1,3 +1,6 @@
 {
-	"small-radius": "4px"
+	"small-radius": "4px",
+	"small-font": "16px",
+	"medium-font": "24px",
+	"large-font": "36px"
 }
