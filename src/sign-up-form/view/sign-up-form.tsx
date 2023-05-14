@@ -64,7 +64,7 @@ export const SignUpForm = observer((props: SignUpFormProps): JSX.Element => {
 						id='color-input'
 						value={ model.color$ }
 						required
-						onChange={ onColorChange }
+						onInput={ onColorChange }
 					/>
 				</div>
 

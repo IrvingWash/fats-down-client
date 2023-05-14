@@ -6,7 +6,7 @@ import * as s from './color-input.pcss';
 interface ColorInputProps {
 	id?: string;
 	value: string;
-	onChange: React.ChangeEventHandler<HTMLInputElement>;
+	onInput: React.FormEventHandler<HTMLInputElement>;
 	required?: boolean;
 	className?: string;
 }
@@ -15,7 +15,7 @@ export function ColorInput(props: ColorInputProps): JSX.Element {
 	const {
 		id,
 		value,
-		onChange,
+		onInput,
 		required,
 		className,
 	} = props;
@@ -27,7 +27,7 @@ export function ColorInput(props: ColorInputProps): JSX.Element {
 			className={ classNames(s.colorInput, className) }
 			type='color'
 			required={ required }
-			onChange={ onChange }
+			onInput={ onInput }
 		/>
 	);
 }
