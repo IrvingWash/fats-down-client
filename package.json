@@ -12,13 +12,10 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": ""
+		"url": "https://github.com/IrvingWash/fats-down-client-2.0"
 	},
 	"author": "WI",
 	"license": "ISC",
-	"bugs": {
-		"url": ""
-	},
 	"homepage": "",
 	"devDependencies": {
 		"@types/dotenv-webpack": "^7.0.3",

@@ -14,7 +14,7 @@ const commonConfig: Configuration = {
 		],
 		alias: {
 			'@ui-kit': path.resolve(__dirname, '..', './src/ui-kit'),
-			'@common': path.resolve(__dirname, '..', './src/common'),
+			'@utils': path.resolve(__dirname, '..', './src/utils'),
 		},
 	},
 	output: {

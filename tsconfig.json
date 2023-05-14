@@ -9,7 +9,7 @@
 		"baseUrl": "./",
 		"paths": {
 			"@ui-kit/*": ["./src/ui-kit/*"],
-			"@common/*": ["./src/common/*"]
+			"@utils/*": ["./src/utils/*"]
 		},
 		"resolveJsonModule": true,
 		"allowJs": true,
