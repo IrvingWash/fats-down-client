@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { TestPage } from './test-page';
+
 export class App extends React.Component {
 	public override render(): JSX.Element {
 		return (
-			<>
-				<div>Hello, World!</div>
-			</>
+			<main>
+				<TestPage />
+			</main>
 		);
 	}
 }
