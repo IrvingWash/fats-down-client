@@ -1,7 +1,7 @@
 {
-	"fd-black": "#0f080a",
-	"fd-white": "#fefefe",
-	"fd-primary-color": "#1a7b34",
-	"fd-secondary-color": "#79d2bc",
-	"fd-accent-color": "#f34c4e"
+	"fd-color-black": "#0f080a",
+	"fd-color-white": "#fefefe",
+	"fd-color-primary": "#1a7b34",
+	"fd-color-secondary": "#79d2bc",
+	"fd-color-accent": "#f34c4e"
 }

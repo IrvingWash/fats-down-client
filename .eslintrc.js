@@ -32,5 +32,6 @@ module.exports = {
 		'space-before-function-paren': ['error', 'never'],
 		'keyword-spacing': ['error'],
 		'space-before-blocks': ['error'],
+		'jsx-quotes': ['error', 'prefer-single'],
 	},
 };
