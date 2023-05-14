@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 
 import {
 	Button,
-	ColorInput,
 	Heading,
 	Input,
 	Label,
@@ -11,24 +10,24 @@ import {
 
 import { Intent, Size } from '@ui-kit/constants';
 
-import { ISignUpFormModel } from '../model/sign-up-form-model';
+import { ISignInFormModel } from '../model/sign-in-form-model';
 
 import * as s from './sign-up-form.pcss';
 
-interface SignUpFormProps {
-	model: ISignUpFormModel;
+interface SignInFormProps {
+	model: ISignInFormModel;
 }
 
-export const SignUpForm = observer((props: SignUpFormProps): JSX.Element => {
+export const SignInForm = observer((props: SignInFormProps): JSX.Element => {
 	const { model } = props;
 
 	return (
-		<div className={ s.signUpForm }>
+		<div className={ s.signInForm }>
 			<Heading
 			className={ s.title }
 				size={ Size.Large }
 			>
-				Sign Up
+				Sign In
 			</Heading>
 
 			<form
@@ -44,27 +43,6 @@ export const SignUpForm = observer((props: SignUpFormProps): JSX.Element => {
 						required
 						value={ model.email$ }
 						onChange={ onEmailChange }
-					/>
-				</div>
-
-				<div className={ s.control }>
-					<Label htmlFor='usernameInput'>Username</Label>
-					<Input
-						id='usernameInput'
-						value={ model.username$ }
-						placeholder='How do you want to be seen?'
-						required
-						onChange={ onUsernameChange }
-					/>
-				</div>
-
-				<div className={ s.control }>
-					<Label htmlFor='color-input'>Color</Label>
-					<ColorInput
-						id='color-input'
-						value={ model.color$ }
-						required
-						onInput={ onColorChange }
 					/>
 				</div>
 
@@ -93,14 +71,6 @@ export const SignUpForm = observer((props: SignUpFormProps): JSX.Element => {
 
 	function onEmailChange(event: React.ChangeEvent<HTMLInputElement>): void {
 		model.setEmail(event.target.value);
-	}
-
-	function onUsernameChange(event: React.ChangeEvent<HTMLInputElement>): void {
-		model.setUsername(event.target.value);
-	}
-
-	function onColorChange(event: React.ChangeEvent<HTMLInputElement>): void {
-		model.setColor(event.target.value);
 	}
 
 	function onPasswordChange(event: React.ChangeEvent<HTMLInputElement>): void {
