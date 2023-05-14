@@ -8,7 +8,7 @@ import * as s from './button.pcss';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	intent?: Intent;
 	size?: Size,
-};
+}
 
 export function Button(props: ButtonProps): JSX.Element {
 	const {
