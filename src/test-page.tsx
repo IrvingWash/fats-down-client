@@ -1,5 +1,6 @@
-import { Button } from '@ui-kit/button/button';
 import React from 'react';
+
+import { Button } from '@ui-kit/components/';
 
 export function TestPage(): JSX.Element {
 	return (
