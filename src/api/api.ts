@@ -7,22 +7,37 @@ import { IAuthProvider } from './auth-provider/iauth-provider';
 import { AuthProvider } from './auth-provider/auth-provider';
 import { SignInPayload, SignUpPayload } from './api-objects';
 import { IAPI } from './iapi';
+import { ITransport } from './transport/itransport';
+import { Transport } from './transport/transport';
+import { APIFetch, makeAPIFetch } from './api-fetch';
 
 export class API implements IAPI {
 	private readonly _baseURL: string;
 
 	private readonly _credentialStorage: ICredentialStorage;
 	private readonly _requestsEnvironment: IRequestsEnvironment;
+	private readonly _apiFetch: APIFetch;
 
 	private readonly _authProvider: IAuthProvider;
+	private readonly _transport: ITransport;
 
 	public constructor(credentialStorage: ICredentialStorage) {
 		this._baseURL = EnvExtractor.serverURL;
 
 		this._credentialStorage = credentialStorage;
 		this._requestsEnvironment = new RequestsEnvironment(this._baseURL);
+		this._apiFetch = makeAPIFetch(this._credentialStorage);
 
-		this._authProvider = new AuthProvider(this._requestsEnvironment, this._credentialStorage);
+		this._authProvider = new AuthProvider({
+			requestsEnvironment: this._requestsEnvironment,
+			credentialStorage: this._credentialStorage,
+			apiFetch: this._apiFetch,
+		});
+
+		this._transport = new Transport(
+			makeAPIFetch(this._credentialStorage),
+			this._requestsEnvironment
+		);
 	}
 
 	public async signIn(payload: SignInPayload): Promise<void> {
@@ -39,6 +54,11 @@ export class API implements IAPI {
 
 	public async signOut(): Promise<void> {
 		await this._authProvider.signOut();
+	}
+
+	// TODO: Remove unknown
+	public async allUsers(): Promise<unknown> {
+		return await this._transport.allUsers();
 	}
 }
 

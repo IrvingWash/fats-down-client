@@ -2,6 +2,6 @@ import { AuthResult } from 'src/api/api-objects';
 
 export interface ICredentialStorage {
 	save(credentials: AuthResult): void;
-	load(): AuthResult;
+	load(): AuthResult | null;
 	clear(): void;
 }

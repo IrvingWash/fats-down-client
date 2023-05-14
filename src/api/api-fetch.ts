@@ -1,30 +1,37 @@
+import { ICredentialStorage } from 'src/credential-storage/icredential-storage';
+
 import { RequestMetainfo } from './requests-environment/irequests-environment';
 
-export type APIFetch = ReturnType<typeof makeAPIFetch>;
+export type APIFetch = <T>(RequestMetainfo: RequestMetainfo, payload?: object) => Promise<T>
 
-export function makeAPIFetch(accessToken: string): (requestMetainfo: RequestMetainfo, payload: object) => ReturnType<typeof apiFetch> {
-	const headers = makeHeaders(accessToken);
-
-	return (requestMetainfo: RequestMetainfo, payload: object) => apiFetch(requestMetainfo, headers, payload);
+export function makeAPIFetch(credentialStorage: ICredentialStorage): APIFetch {
+	return (requestMetainfo: RequestMetainfo, payload?: object) => apiFetch(requestMetainfo, credentialStorage, payload);
 }
 
-async function apiFetch<T>(requestMetainfo: RequestMetainfo, headers: Headers, payload?: object): Promise<T> {
+async function apiFetch<T>(requestMetainfo: RequestMetainfo, credentialStorage: ICredentialStorage, payload?: object): Promise<T> {
 	const response = await fetch(
 		requestMetainfo.url,
 		{
-			headers,
+			headers: makeHeaders(credentialStorage.load()?.tokens?.accessToken),
 			body: payload === undefined ? undefined : JSON.stringify(payload),
 		}
 	);
 
+	if (!response.ok) {
+		throw new Error(response.statusText);
+	}
+
 	return await response.json();
 }
 
-function makeHeaders(accessToken: string): Headers {
+function makeHeaders(accessToken: string | undefined): Headers {
 	const headers = new Headers();
 
 	headers.append('Content-Type', 'application/json');
-	headers.append('Authorization', accessToken);
+
+	if (accessToken !== undefined) {
+		headers.append('Authorization', accessToken);
+	}
 
 	return headers;
 }
