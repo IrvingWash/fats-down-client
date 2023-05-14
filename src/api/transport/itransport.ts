@@ -1,4 +1,5 @@
+import { User } from '../api-objects';
+
 export interface ITransport {
-	// TODO: Remove unknown
-	allUsers(): Promise<unknown>
+	allUsers(): Promise<User[]>
 }

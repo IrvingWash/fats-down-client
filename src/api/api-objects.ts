@@ -18,3 +18,17 @@ export interface Tokens {
 	accessToken: string;
 	refreshToken: string;
 }
+
+export interface User {
+	id: number;
+	username: string;
+	email: string;
+	color: string;
+	weights: Weight[];
+}
+
+export interface Weight {
+	id: number;
+	value: number;
+	date: string;
+}

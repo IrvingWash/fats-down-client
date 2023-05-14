@@ -1,4 +1,5 @@
 import { APIFetch } from '../api-fetch';
+import { User } from '../api-objects';
 import { IRequestsEnvironment } from '../requests-environment/irequests-environment';
 import { ITransport } from './itransport';
 
@@ -11,8 +12,7 @@ export class Transport implements ITransport {
 		this._requestsEnvironment = requestsEnvironment;
 	}
 
-	// TODO: Remove unknown
-	public async allUsers(): Promise<unknown> {
-		return await this._apiFetch<unknown>(this._requestsEnvironment.allUsers());
+	public async allUsers(): Promise<User[]> {
+		return await this._apiFetch<User[]>(this._requestsEnvironment.allUsers());
 	}
 }

@@ -1,11 +1,16 @@
 import { EnvExtractor } from '@utils/env-extractor';
 import { ICredentialStorage } from 'src/credential-storage/icredential-storage';
 
+import {
+	SignInPayload,
+	SignUpPayload,
+	User,
+} from './api-objects';
+
 import { IRequestsEnvironment } from './requests-environment/irequests-environment';
 import { RequestsEnvironment } from './requests-environment/requests-environment';
 import { IAuthProvider } from './auth-provider/iauth-provider';
 import { AuthProvider } from './auth-provider/auth-provider';
-import { SignInPayload, SignUpPayload } from './api-objects';
 import { IAPI } from './iapi';
 import { ITransport } from './transport/itransport';
 import { Transport } from './transport/transport';
@@ -56,8 +61,7 @@ export class API implements IAPI {
 		await this._authProvider.signOut();
 	}
 
-	// TODO: Remove unknown
-	public async allUsers(): Promise<unknown> {
+	public async allUsers(): Promise<User[]> {
 		return await this._transport.allUsers();
 	}
 }
