@@ -20,6 +20,7 @@ import { RaceTrack } from './race-track/view/race-track';
 import { IRaceTackModel, RaceTrackModel } from './race-track/model/race-track-model';
 
 interface AppProps {}
+
 interface AppState {
 	currentPage: Page;
 	username?: string;
@@ -46,8 +47,8 @@ export class App extends React.Component<AppProps, AppState> {
 			username: this._credentialStorage.load()?.username,
 		};
 
-		this._signUpFormModel = new SignUpFormModel(this._api);
-		this._signInFormModel = new SignInFormModel(this._api);
+		this._signUpFormModel = new SignUpFormModel(this._api, this._pageManager);
+		this._signInFormModel = new SignInFormModel(this._api, this._pageManager);
 		this._raceTrackModel = new RaceTrackModel(this._api);
 	}
 
@@ -57,11 +58,16 @@ export class App extends React.Component<AppProps, AppState> {
 				<Header
 					title='FatsDown'
 					navigationItems={ this._pageManager.createNavigationItems() }
+					username={ this.state.username }
 				/>
 
 				{ this._renderPage() }
 			</main>
 		);
+	}
+
+	public override componentDidUpdate(_prevProps: Readonly<AppProps>, prevState: Readonly<AppState>): void {
+		this._checkHasLoggedIn(prevState);
 	}
 
 	private _renderPage(): JSX.Element {
@@ -80,4 +86,12 @@ export class App extends React.Component<AppProps, AppState> {
 			currentPage: page,
 		});
 	};
+
+	private _checkHasLoggedIn(prevState: Readonly<AppState>): void {
+		if (prevState.currentPage === this.state.currentPage || this.state.username !== undefined) {
+			return;
+		}
+
+		this.setState({ username: this._credentialStorage.load()?.username });
+	}
 }

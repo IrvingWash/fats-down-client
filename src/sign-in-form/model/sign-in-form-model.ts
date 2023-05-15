@@ -5,6 +5,7 @@ import {
 } from 'mobx';
 
 import { IAPI } from 'src/api/iapi';
+import { IPageManager, Page } from 'src/page-manager/page-manager';
 
 export interface ISignInFormModel {
 	email$: string;
@@ -19,8 +20,9 @@ export class SignInFormModel implements ISignInFormModel {
 	public password$: string = '';
 
 	private _api: IAPI;
+	private _pageManager: IPageManager;
 
-	public constructor(api: IAPI) {
+	public constructor(api: IAPI, pageManager: IPageManager) {
 		makeObservable(
 			this,
 			{
@@ -32,6 +34,7 @@ export class SignInFormModel implements ISignInFormModel {
 		);
 
 		this._api = api;
+		this._pageManager = pageManager;
 	}
 
 	public setEmail(value: string): void {
@@ -47,5 +50,7 @@ export class SignInFormModel implements ISignInFormModel {
 			email: this.email$,
 			password: this.password$,
 		});
+
+		this._pageManager.setCurrentPage(Page.RaceTrack);
 	}
 }

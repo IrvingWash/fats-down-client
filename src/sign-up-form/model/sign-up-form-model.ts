@@ -5,6 +5,7 @@ import {
 } from 'mobx';
 
 import { IAPI } from 'src/api/iapi';
+import { IPageManager, Page } from 'src/page-manager/page-manager';
 
 export interface ISignUpFormModel {
 	username$: string;
@@ -25,8 +26,9 @@ export class SignUpFormModel implements ISignUpFormModel {
 	public password$: string = '';
 
 	private _api: IAPI;
+	private _pageManager: IPageManager;
 
-	public constructor(api: IAPI) {
+	public constructor(api: IAPI, pageManager: IPageManager) {
 		makeObservable(
 			this,
 			{
@@ -42,6 +44,7 @@ export class SignUpFormModel implements ISignUpFormModel {
 		);
 
 		this._api = api;
+		this._pageManager = pageManager;
 	}
 
 	public setUsername(value: string): void {
@@ -67,5 +70,7 @@ export class SignUpFormModel implements ISignUpFormModel {
 			password: this.password$,
 			color: this.color$,
 		});
+
+		this._pageManager.setCurrentPage(Page.RaceTrack);
 	}
 }
