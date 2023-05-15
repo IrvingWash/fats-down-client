@@ -28,7 +28,10 @@ export const RaceTrack = observer((props: RaceTrackProps): JSX.Element => {
 		<div className={ s.raceTrack }>
 			<WeightChart userData={ model.userData$ } />
 
-			<form onSubmit={ onFormSubmit }>
+			<form
+				className={ s.form }
+				onSubmit={ onFormSubmit }
+			>
 				<div className={ s.control }>
 					<Label htmlFor='weightInput'>Weight</Label>
 					<Input
