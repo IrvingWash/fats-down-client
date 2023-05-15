@@ -21,6 +21,14 @@ export class WeightChart extends React.Component<WeightChartProps, {}> {
 	public override componentDidMount(): void {
 		this._createChart();
 
+		this._resizeHandler = (): void => {
+			if (this._chart === undefined) {
+				return;
+			}
+
+			this._chart.applyOptions({ width: this._chartContainerRef.current!.clientWidth });
+		};
+
 		window.addEventListener('resize', this._resizeHandler);
 
 		this._makeSeries();
@@ -47,14 +55,6 @@ export class WeightChart extends React.Component<WeightChartProps, {}> {
 			width: this._chartContainerRef.current!.clientWidth,
 			height: 500,
 		});
-
-		this._resizeHandler = (): void => {
-			if (this._chart === undefined) {
-				return;
-			}
-
-			this._chart.applyOptions({ width: this._chartContainerRef.current!.clientWidth });
-		};
 
 		this._chart.timeScale().fitContent();
 	}
