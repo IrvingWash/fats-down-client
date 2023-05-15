@@ -22,6 +22,7 @@ import { IRaceTackModel, RaceTrackModel } from './race-track/model/race-track-mo
 interface AppProps {}
 interface AppState {
 	currentPage: Page;
+	username?: string;
 }
 
 export class App extends React.Component<AppProps, AppState> {
@@ -42,11 +43,18 @@ export class App extends React.Component<AppProps, AppState> {
 
 		this.state = {
 			currentPage: this._pageManager.getCurrentPage(),
+			username: this._credentialStorage.load()?.username,
 		};
 
 		this._signUpFormModel = new SignUpFormModel(this._api);
 		this._signInFormModel = new SignInFormModel(this._api);
 		this._raceTrackModel = new RaceTrackModel(this._api);
+	}
+
+	public override componentDidUpdate(): void {
+		this.setState({
+			username: this._credentialStorage.load()?.username,
+		});
 	}
 
 	public override render(): JSX.Element {
