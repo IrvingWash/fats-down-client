@@ -8,15 +8,22 @@ interface WeightChartProps {
 }
 
 export class WeightChart extends React.Component<WeightChartProps, {}> {
-	private _chartContainerRef!: React.RefObject<HTMLDivElement>;
+	private readonly _chartContainerRef!: React.RefObject<HTMLDivElement>;
 	private _chart!: IChartApi;
+	private _resizeHandler!: () => void | null;
+
+	public constructor(props: WeightChartProps) {
+		super(props);
+
+		this._chartContainerRef = React.createRef();
+	}
 
 	public override componentDidMount(): void {
-		this._chartContainerRef = React.createRef();
-
-		this._renderChart();
+		this._createChart();
 
 		window.addEventListener('resize', this._resizeHandler);
+
+		this._makeSeries();
 	}
 
 	public override componentDidUpdate(): void {
@@ -35,21 +42,21 @@ export class WeightChart extends React.Component<WeightChartProps, {}> {
 		);
 	}
 
-	private _renderChart(): void {
+	private _createChart(): void {
 		this._chart = createChart(this._chartContainerRef.current!, {
 			width: this._chartContainerRef.current!.clientWidth,
 			height: 500,
 		});
 
+		this._resizeHandler = (): void => {
+			if (this._chart === undefined) {
+				return;
+			}
+
+			this._chart.applyOptions({ width: this._chartContainerRef.current!.clientWidth });
+		};
+
 		this._chart.timeScale().fitContent();
-	}
-
-	private _resizeHandler(): void {
-		if (this._chart === undefined) {
-			return;
-		}
-
-		this._chart.applyOptions({ width: this._chartContainerRef.current!.clientWidth });
 	}
 
 	private _makeSeries(): void {
