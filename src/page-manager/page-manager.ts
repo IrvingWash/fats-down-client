@@ -3,10 +3,10 @@ export interface IPageManager {
 	setCurrentPage(page: Page): void;
 }
 
-export const enum Page {
-	SignUp,
-	SignIn,
-	RaceTrack
+export enum Page {
+	SignUp = 'Sign Up',
+	SignIn = 'Sign In',
+	RaceTrack = 'Race Track',
 }
 
 export class PageManager implements IPageManager {

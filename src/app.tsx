@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Header } from '@ui-kit/components';
+import { NavigationItem } from '@ui-kit/components/header/header';
 
 import {
 	IPageManager,
@@ -51,16 +52,13 @@ export class App extends React.Component<AppProps, AppState> {
 		this._raceTrackModel = new RaceTrackModel(this._api);
 	}
 
-	public override componentDidUpdate(): void {
-		this.setState({
-			username: this._credentialStorage.load()?.username,
-		});
-	}
-
 	public override render(): JSX.Element {
 		return (
 			<main>
-				<Header title='FatsDown' />
+				<Header
+					title='FatsDown'
+					navigationItems={ this._createNavigationItems() }
+				/>
 
 				{ this._renderPage() }
 			</main>
@@ -83,4 +81,23 @@ export class App extends React.Component<AppProps, AppState> {
 			currentPage: page,
 		});
 	};
+
+	private _createNavigationItems(): NavigationItem[] {
+		const items: NavigationItem[] = [];
+
+		const pages = Object.values(Page);
+
+		for (const page of pages) {
+			if (page === this.state.currentPage) {
+				continue;
+			}
+
+			items.push({
+				title: page,
+				handler: () => this._pageManager.setCurrentPage(page as Page),
+			});
+		}
+
+		return items;
+	}
 }

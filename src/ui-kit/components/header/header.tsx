@@ -7,8 +7,14 @@ import { Button } from '../button/button';
 
 import * as s from './header.pcss';
 
+export interface NavigationItem {
+	title: string;
+	handler: () => void;
+}
+
 interface HeaderProps {
 	title: string;
+	navigationItems?: NavigationItem[]
 	username?: string;
 	className?: string;
 }
@@ -18,6 +24,7 @@ export function Header(props: HeaderProps): JSX.Element {
 		title,
 		className,
 		username,
+		navigationItems,
 	} = props;
 
 	return (
@@ -30,21 +37,23 @@ export function Header(props: HeaderProps): JSX.Element {
 				)
 				: (
 					<div className={ s.joinBlock }>
-						<Button
-							size={ Size.Small }
-							intent={ Intent.Accent }
-						>
-							Sign Up
-						</Button>
-						<Button
-							size={ Size.Small }
-							intent={ Intent.Accent }
-						>
-							Sign In
-						</Button>
+						{ renderNavigationItems() }
 					</div>
 				)
 			}
 		</header>
 	);
+
+	function renderNavigationItems(): JSX.Element[] | undefined {
+		return navigationItems?.map((item) => (
+			<Button
+				key={ item.title }
+				size={ Size.Small }
+				intent={ Intent.Accent }
+				onClick={ item.handler }
+			>
+				{ item.title }
+			</Button>
+		));
+	}
 }
