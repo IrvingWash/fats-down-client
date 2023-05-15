@@ -94,7 +94,11 @@ export class App extends React.Component<AppProps, AppState> {
 
 			items.push({
 				title: page,
-				handler: () => this._pageManager.setCurrentPage(page as Page),
+				handler: () => {
+					history.pushState({}, '', page);
+
+					this._pageManager.setCurrentPage(page as Page);
+				},
 			});
 		}
 
