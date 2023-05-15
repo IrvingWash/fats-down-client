@@ -8,7 +8,7 @@
 	"main": "index.tsx",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/IrvingWash/fats-down-client-2.0"
+		"url": "https://github.com/IrvingWash/fats-down-client"
 	},
 	"scripts": {
 		"start": "webpack serve --config webpack/webpack.config.ts --env env=dev",
