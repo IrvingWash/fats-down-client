@@ -1,6 +1,9 @@
+import { NavigationItem } from '@ui-kit/components/header/header';
+
 export interface IPageManager {
 	getCurrentPage: () => Page;
 	setCurrentPage(page: Page): void;
+	createNavigationItems(): NavigationItem[];
 }
 
 export enum Page {
@@ -25,5 +28,28 @@ export class PageManager implements IPageManager {
 		this._currentPage = page;
 
 		this._onPageChanged(page);
+	}
+
+	public createNavigationItems(): NavigationItem[] {
+		const items: NavigationItem[] = [];
+
+		const pages = Object.values(Page);
+
+		for (const page of pages) {
+			if (page === this._currentPage) {
+				continue;
+			}
+
+			items.push({
+				title: page,
+				handler: () => {
+					history.pushState({}, '', page.replace(' ', '-'));
+
+					this.setCurrentPage(page as Page);
+				},
+			});
+		}
+
+		return items;
 	}
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Header } from '@ui-kit/components';
-import { NavigationItem } from '@ui-kit/components/header/header';
 
 import {
 	IPageManager,
@@ -57,7 +56,7 @@ export class App extends React.Component<AppProps, AppState> {
 			<main>
 				<Header
 					title='FatsDown'
-					navigationItems={ this._createNavigationItems() }
+					navigationItems={ this._pageManager.createNavigationItems() }
 				/>
 
 				{ this._renderPage() }
@@ -81,27 +80,4 @@ export class App extends React.Component<AppProps, AppState> {
 			currentPage: page,
 		});
 	};
-
-	private _createNavigationItems(): NavigationItem[] {
-		const items: NavigationItem[] = [];
-
-		const pages = Object.values(Page);
-
-		for (const page of pages) {
-			if (page === this.state.currentPage) {
-				continue;
-			}
-
-			items.push({
-				title: page,
-				handler: () => {
-					history.pushState({}, '', page);
-
-					this._pageManager.setCurrentPage(page as Page);
-				},
-			});
-		}
-
-		return items;
-	}
 }
