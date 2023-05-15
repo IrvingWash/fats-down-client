@@ -21,3 +21,9 @@ export function extractErrorMessage(error: unknown): string {
 
 	return error.toString();
 }
+
+export function appendZeroToDateElement(dateElement: number): string {
+	return dateElement < 10
+		? `0${dateElement}`
+		: String(dateElement);
+}

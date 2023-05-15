@@ -4,6 +4,7 @@ import {
 	observable,
 } from 'mobx';
 
+import { appendZeroToDateElement } from '@utils/helpers';
 import { User } from 'src/api/api-objects';
 import { IAPI } from 'src/api/iapi';
 
@@ -36,7 +37,9 @@ export class RaceTrackModel implements IRaceTackModel {
 	}
 
 	public async getUserData(): Promise<void> {
-		this.userData$ = await this._api.allUsers();
+		const userData = await this._api.allUsers();
+
+		this.userData$ = userData.map(this._convertWeightDates);
 	}
 
 	public setTodaysWeight(value: string): void {
@@ -58,5 +61,19 @@ export class RaceTrackModel implements IRaceTackModel {
 			date: String(Date.now()),
 			value: weight,
 		});
+	}
+
+	private _convertWeightDates(user: User): User {
+		user.weights.forEach((weight) => {
+			const date = new Date(+weight.date);
+
+			const year = date.getFullYear();
+			const month = date.getMonth();
+			const day = date.getDate();
+
+			weight.date = `${year}-${appendZeroToDateElement(month)}-${appendZeroToDateElement(day)}`;
+		});
+
+		return user;
 	}
 }

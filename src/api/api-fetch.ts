@@ -31,7 +31,7 @@ function makeHeaders(accessToken: string | undefined): Headers {
 	headers.append('Content-Type', 'application/json');
 
 	if (accessToken !== undefined) {
-		headers.append('Authorization', accessToken);
+		headers.append('Authorization', `Bearer ${accessToken}`);
 	}
 
 	return headers;
