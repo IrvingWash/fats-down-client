@@ -2,6 +2,12 @@ import React from 'react';
 
 import { Header } from '@ui-kit/components';
 
+import {
+	IPageManager,
+	Page,
+	PageManager,
+} from './page-manager/page-manager';
+
 import { SignUpForm } from './sign-up-form/view/sign-up-form';
 import { ISignUpFormModel, SignUpFormModel } from './sign-up-form/model/sign-up-form-model';
 import { ICredentialStorage } from './credential-storage/icredential-storage';
@@ -14,11 +20,14 @@ import { RaceTrack } from './race-track/view/race-track';
 import { IRaceTackModel, RaceTrackModel } from './race-track/model/race-track-model';
 
 interface AppProps {}
+interface AppState {
+	currentPage: Page;
+}
 
-export class App extends React.Component {
+export class App extends React.Component<AppProps, AppState> {
 	private readonly _credentialStorage: ICredentialStorage;
-
 	private readonly _api: IAPI;
+	private readonly _pageManager: IPageManager;
 
 	private readonly _signUpFormModel: ISignUpFormModel;
 	private readonly _signInFormModel: ISignInFormModel;
@@ -28,8 +37,12 @@ export class App extends React.Component {
 		super(props);
 
 		this._credentialStorage = new CredentialStorage();
-
 		this._api = new API(this._credentialStorage);
+		this._pageManager = new PageManager(this._pageChangeHandler);
+
+		this.state = {
+			currentPage: this._pageManager.getCurrentPage(),
+		};
 
 		this._signUpFormModel = new SignUpFormModel(this._api);
 		this._signInFormModel = new SignInFormModel(this._api);
@@ -41,10 +54,25 @@ export class App extends React.Component {
 			<main>
 				<Header title='FatsDown' />
 
-				<SignUpForm model={ this._signUpFormModel } />
-				<SignInForm model={ this._signInFormModel } />
-				<RaceTrack model={ this._raceTrackModel } />
+				{ this._renderPage() }
 			</main>
 		);
 	}
+
+	private _renderPage(): JSX.Element {
+		switch (this.state.currentPage) {
+			case Page.SignUp:
+				return <SignUpForm model={ this._signUpFormModel } />;
+			case Page.SignIn:
+				return <SignInForm model={ this._signInFormModel } />;
+			default:
+				return <RaceTrack model={ this._raceTrackModel } />;
+		}
+	}
+
+	private _pageChangeHandler = (page: Page): void => {
+		this.setState({
+			currentPage: page,
+		});
+	};
 }
