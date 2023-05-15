@@ -33,5 +33,6 @@ module.exports = {
 		'keyword-spacing': ['error'],
 		'space-before-blocks': ['error'],
 		'jsx-quotes': ['error', 'prefer-single'],
+		'react/jsx-tag-spacing': ['error'],
 	},
 };

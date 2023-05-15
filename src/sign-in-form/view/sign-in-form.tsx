@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { observer } from 'mobx-react';
 
 import {
@@ -12,7 +12,7 @@ import { Intent, Size } from '@ui-kit/constants';
 
 import { ISignInFormModel } from '../model/sign-in-form-model';
 
-import * as s from './sign-up-form.pcss';
+import * as s from './sign-in-form.pcss';
 
 interface SignInFormProps {
 	model: ISignInFormModel;
@@ -39,7 +39,7 @@ export const SignInForm = observer((props: SignInFormProps): JSX.Element => {
 					<Input
 						id='emailInput'
 						type='email'
-						placeholder='No spam, honest'
+						placeholder='No spam, right?'
 						required
 						value={ model.email$ }
 						onChange={ onEmailChange }
@@ -53,7 +53,7 @@ export const SignInForm = observer((props: SignInFormProps): JSX.Element => {
 						value={ model.password$ }
 						minLength={ 8 }
 						type='password'
-						placeholder='Come up with a new one'
+						placeholder='Hope you remember it'
 						required
 						onChange={ onPasswordChange }
 					/>
@@ -69,15 +69,15 @@ export const SignInForm = observer((props: SignInFormProps): JSX.Element => {
 		</div>
 	);
 
-	function onEmailChange(event: React.ChangeEvent<HTMLInputElement>): void {
+	function onEmailChange(event: ChangeEvent<HTMLInputElement>): void {
 		model.setEmail(event.target.value);
 	}
 
-	function onPasswordChange(event: React.ChangeEvent<HTMLInputElement>): void {
+	function onPasswordChange(event: ChangeEvent<HTMLInputElement>): void {
 		model.setPassword(event.target.value);
 	}
 
-	async function onFormSubmit(event: React.ChangeEvent<HTMLFormElement>): Promise<void> {
+	async function onFormSubmit(event: ChangeEvent<HTMLFormElement>): Promise<void> {
 		event.preventDefault();
 
 		await model.submit();

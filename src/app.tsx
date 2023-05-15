@@ -8,6 +8,10 @@ import { ICredentialStorage } from './credential-storage/icredential-storage';
 import { IAPI } from './api/iapi';
 import { CredentialStorage } from './credential-storage/credential-storage';
 import { API } from './api/api';
+import { SignInForm } from './sign-in-form/view/sign-in-form';
+import { ISignInFormModel, SignInFormModel } from './sign-in-form/model/sign-in-form-model';
+import { RaceTrack } from './race-track/view/race-track';
+import { IRaceTackModel, RaceTrackModel } from './race-track/model/race-track-model';
 
 interface AppProps {}
 
@@ -17,6 +21,8 @@ export class App extends React.Component {
 	private readonly _api: IAPI;
 
 	private readonly _signUpFormModel: ISignUpFormModel;
+	private readonly _signInFormModel: ISignInFormModel;
+	private readonly _raceTrackModel: IRaceTackModel;
 
 	public constructor(props: AppProps) {
 		super(props);
@@ -26,6 +32,8 @@ export class App extends React.Component {
 		this._api = new API(this._credentialStorage);
 
 		this._signUpFormModel = new SignUpFormModel(this._api);
+		this._signInFormModel = new SignInFormModel(this._api);
+		this._raceTrackModel = new RaceTrackModel(this._api);
 	}
 
 	public override render(): JSX.Element {
@@ -34,6 +42,8 @@ export class App extends React.Component {
 				<Header title='FatsDown' />
 
 				<SignUpForm model={ this._signUpFormModel } />
+				<SignInForm model={ this._signInFormModel } />
+				<RaceTrack model={ this._raceTrackModel } />
 			</main>
 		);
 	}

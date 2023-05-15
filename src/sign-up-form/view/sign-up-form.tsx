@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { observer } from 'mobx-react';
 
 import {
@@ -91,23 +91,23 @@ export const SignUpForm = observer((props: SignUpFormProps): JSX.Element => {
 		</div>
 	);
 
-	function onEmailChange(event: React.ChangeEvent<HTMLInputElement>): void {
+	function onEmailChange(event: ChangeEvent<HTMLInputElement>): void {
 		model.setEmail(event.target.value);
 	}
 
-	function onUsernameChange(event: React.ChangeEvent<HTMLInputElement>): void {
+	function onUsernameChange(event: ChangeEvent<HTMLInputElement>): void {
 		model.setUsername(event.target.value);
 	}
 
-	function onColorChange(event: React.ChangeEvent<HTMLInputElement>): void {
+	function onColorChange(event: ChangeEvent<HTMLInputElement>): void {
 		model.setColor(event.target.value);
 	}
 
-	function onPasswordChange(event: React.ChangeEvent<HTMLInputElement>): void {
+	function onPasswordChange(event: ChangeEvent<HTMLInputElement>): void {
 		model.setPassword(event.target.value);
 	}
 
-	async function onFormSubmit(event: React.ChangeEvent<HTMLFormElement>): Promise<void> {
+	async function onFormSubmit(event: ChangeEvent<HTMLFormElement>): Promise<void> {
 		event.preventDefault();
 
 		await model.submit();
